@@ -1,24 +1,19 @@
-import { Avatar, Box, Stack, Switch } from "@mui/material";
+import {Box, Stack, Switch } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SmsRoundedIcon from "@mui/icons-material/SmsRounded";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
-import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { IconButton } from "@mui/material";
 import React, { useState, useMemo } from "react";
 import Logo from "../Images/Logo.png";
 import Chat from "./Chat";
 import Message from "../Components/Message";
+import Profile from "./Profile";
+import Contact from "./Contact";
+import { icons } from "../Data/Lists";
 
 const DashboardLayout = () => {
   const [mode, setMode] = useState("light");
   const [selected, setSelected] = useState(0);
-  const icons = [
-    { id: 1, IconComponent: SmsRoundedIcon },
-    { id: 2, IconComponent: PeopleOutlineIcon },
-    { id: 3, IconComponent: CallOutlinedIcon },
-    { id: 4, IconComponent: SettingsOutlinedIcon },
-  ];
+
 
   const onToggleMode = () => {
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
@@ -46,7 +41,8 @@ const DashboardLayout = () => {
       }),
     [mode]
   );
-  console.log(theme)
+//the contact page
+// const [open, setOpen] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -104,11 +100,8 @@ const DashboardLayout = () => {
                       padding: selected === icon.id ? "8px" : "12px",
                     }}
                   >
-                    <icon.IconComponent
-                      style={{
-                        color: theme.palette.mode === "dark" ? "white" : "black",
-                      }}
-                    />
+                    {icon.IconComponent}
+                   
                   </IconButton>
                 ))}
                 <hr style={{ width: "100%", color: "grey" }} />
@@ -134,7 +127,8 @@ const DashboardLayout = () => {
                   onChange={onToggleMode}
                   color="default"
                 />
-                <Avatar alt="Remy Sharp" src="<Sw/static/images/avatar/1.jpg" />
+                {/* profile Avatar */}
+                <Profile/>
               </Stack>
             </Stack>
           </Stack>
@@ -142,7 +136,7 @@ const DashboardLayout = () => {
 
         <Box
           sx={{
-            flex: { xs: "1 1 100%", md: "1 1 30%" },
+            flex: { xs: "1 1 100%", md: "1 1 10%" },
             backgroundColor:theme.palette.background.paper,
               
           }}
@@ -150,13 +144,13 @@ const DashboardLayout = () => {
           <Chat theme={theme}/>
         </Box>
        <Box sx={{
-             flex: { xs: "1 1 100%", md: "1 1 70%" },
+             flex: { xs: "1 1 100%", md: "1 1 30%" },
             backgroundColor: theme.palette.background.default,
 
           }}>
         <Message/>
        </Box>
-
+         <Contact/>
       </Stack>
     </ThemeProvider>
   );

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 import {
   Box,
   Typography,
@@ -8,112 +10,51 @@ import {
   Link,
   IconButton,
   Stack,
+  Menu,
+  MenuItem,
 } from "@mui/material";
+import { MessageOptions, chats } from "./Lists";
+
 const ChatHistory = () => {
   // the dummy chat history
-  const chats = [
-    {
-      id: "1",
-      type: "divider",
-      content: "Today",
-    },
-    {
-      id: "2",
-      type: "message",
-      isOutgoing: false,
-      contentType: "text",
-      content: "Hey! Check out this awesome video.",
-      time: "10:05 AM",
-    },
-    {
-      id: "3",
-      type: "message",
-      isOutgoing: false,
-      contentType: "video",
-      content: "https://www.example.com/video.mp4",
-      time: "10:06 AM",
-    },
-    {
-      id: "4",
-      type: "message",
-      isOutgoing: true,
-      contentType: "text",
-      content: "Looks great! Also, here’s the document you needed.",
-      time: "10:07 AM",
-    },
-    {
-      id: "5",
-      type: "message",
-      isOutgoing: true,
-      contentType: "document",
-      content: {
-        fileName: "Project_Plan.pdf",
-        fileUrl: "https://www.example.com/documents/Project_Plan.pdf",
-      },
-      time: "10:08 AM",
-    },
-    {
-      id: "6",
-      type: "divider",
-      content: "Yesterday",
-    },
-    {
-      id: "7",
-      type: "message",
-      isOutgoing: false,
-      contentType: "text",
-      content: "Got any plans for the weekend?",
-      time: "8:15 PM",
-    },
-    {
-      id: "8",
-      type: "message",
-      isOutgoing: true,
-      contentType: "image",
-      content: "https://www.example.com/images/hike.jpg",
-      time: "8:17 PM",
-    },
-    {
-      id: "9",
-      type: "message",
-      isOutgoing: false,
-      contentType: "text",
-      content: "That place looks amazing! Where is it?",
-      time: "8:18 PM",
-    },
-    {
-      id: "10",
-      type: "message",
-      isOutgoing: true,
-      contentType: "text",
-      content: "It’s up in the mountains. Planning a hike there this weekend!",
-      time: "8:20 PM",
-    },
-    {
-      id: "11",
-      type: "divider",
-      content: "Last Wednesday",
-    },
-    {
-      id: "12",
-      type: "message",
-      isOutgoing: false,
-      contentType: "link",
-      content: {
-        url: "https://www.example.com",
-        text: "Here’s the link to the website we discussed.",
-      },
-      time: "2:00 PM",
-    },
-    {
-      id: "13",
-      type: "message",
-      isOutgoing: true,
-      contentType: "text",
-      content: "Thanks! I’ll check it out.",
-      time: "2:05 PM",
-    },
-  ];
+
+  //message options that are needed
+  const Options = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    return (
+      <>
+        <IconButton
+          id="basic-button"
+          aria-controls={open ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          {MessageOptions.map((el) => {
+            return <MenuItem key={el.id}>{el.title}</MenuItem>;
+          })}
+        </Menu>
+      </>
+    );
+  };
 
   return (
     <>
@@ -146,6 +87,7 @@ const ChatHistory = () => {
                       >
                         <Typography>{el.content}</Typography>
                       </Box>
+                      <Options />
                     </Box>
                   );
                 case "link":
@@ -174,6 +116,7 @@ const ChatHistory = () => {
                           <Link href={el.content.url}>{el.content.url}</Link>
                         </Typography>
                       </Box>
+                      <Options />
                     </Box>
                   );
                 case "image":
@@ -204,6 +147,7 @@ const ChatHistory = () => {
                           style={{ width: "100%", borderRadius: 8 }}
                         />
                       </Box>
+                      <Options />
                     </Box>
                   );
                 case "document":
@@ -289,6 +233,7 @@ const ChatHistory = () => {
                           }}
                         />
                       </Box>
+                      <Options />
                     </Box>
                   );
                 default:
@@ -311,6 +256,7 @@ const ChatHistory = () => {
             default:
               return null;
           }
+          //here i want to add the icon of diiferet options
         })}
       </Box>
     </>
