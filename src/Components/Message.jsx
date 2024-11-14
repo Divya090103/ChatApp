@@ -19,8 +19,12 @@ import { faker } from "@faker-js/faker";
 import ChatHistory from "../Data/ChatHistory";
 
 import InputField from "./InputField";
+import { useDispatch } from "react-redux";
+import { toogleSidebar } from "../redux/slices/app";
 
 const Message = () => {
+const dispatch=useDispatch();
+
   return (
     <Stack>
       <Box
@@ -44,8 +48,10 @@ const Message = () => {
             direction="row"
             justifyContent="space-between"
             alignItems="center"
+
           >
-            <Stack direction="row" spacing={2} alignItems="center">
+            <Stack direction="row" spacing={2} alignItems="center" onClick={()=>{dispatch(toogleSidebar())}}>
+
               <Avatar src={faker.image.avatar()} />
               <Box>
                 <Typography variant="h6" color="text.primary">

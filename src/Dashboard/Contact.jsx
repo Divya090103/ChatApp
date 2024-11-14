@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Divider,
-  Icon,
   IconButton,
   Stack,
   Switch,
@@ -15,7 +14,10 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { useDispatch } from "react-redux";
+import { toogleSidebar } from "../redux/slices/app";
 const Contact = () => {
+  const dispatch=useDispatch();
   return (
     <>
       <Box
@@ -31,7 +33,11 @@ const Contact = () => {
           <Box sx={{ background: "theme.pallete.background.default" }} p={1}>
             <Stack direction={'row'} alignItems={"center"} spacing={12}>
             <Typography variant="h5">Contact Info</Typography>
+            <IconButton onClick={()=>{
+              dispatch(toogleSidebar())
+            }}>
               <CloseOutlinedIcon/>
+              </IconButton>
               </Stack>
             <Divider />
           </Box>

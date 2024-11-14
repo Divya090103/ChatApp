@@ -9,8 +9,12 @@ import Message from "../Components/Message";
 import Profile from "./Profile";
 import Contact from "./Contact";
 import { icons } from "../Data/Lists";
-
+import {  useSelector } from "react-redux";
 const DashboardLayout = () => {
+  const app=useSelector((store)=>store.app);
+  console.log(app);
+const res=app.sidebar.open;
+
   const [mode, setMode] = useState("light");
   const [selected, setSelected] = useState(0);
 
@@ -144,13 +148,19 @@ const DashboardLayout = () => {
           <Chat theme={theme}/>
         </Box>
        <Box sx={{
-             flex: { xs: "1 1 100%", md: "1 1 30%" },
+             flex: { xs: "1 1 100%", md: "1 1 40%" },
             backgroundColor: theme.palette.background.default,
 
           }}>
         <Message/>
        </Box>
+      {res&&<Box sx={{
+             flex: { xs: "1 1 100%", md: "1 1 15%" },
+            backgroundColor: theme.palette.background.default,
+
+          }}>
          <Contact/>
+       </Box>}
       </Stack>
     </ThemeProvider>
   );
