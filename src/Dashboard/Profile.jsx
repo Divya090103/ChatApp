@@ -1,7 +1,10 @@
 import React from "react";
 import { ProfileOptions } from "../Data/Lists";
-import {Menu,MenuItem,Stack,IconButton,Avatar, Typography} from '@mui/material';
+import {Menu,MenuItem,Stack,IconButton,Avatar, Typography, backdropClasses} from '@mui/material';
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { toogleSidebar } from "../redux/slices/app";
+import { useTheme } from "@emotion/react";
 const Profile= () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -12,7 +15,8 @@ const Profile= () => {
     setAnchorEl(null);
   };
   const [opn,setOpen]=useState(false);
-
+  const dispatch=useDispatch();
+const theme=useTheme();
   return (
     <>
       <IconButton
@@ -35,8 +39,8 @@ const Profile= () => {
         }}
       >
         {ProfileOptions.map((el) => {
-          return <MenuItem key={el.id}>
-            <Stack direction='row' spacing={2}>
+          return <MenuItem key={el.id} sx={{backgroundColor:theme.palette.background.paper}}>
+            <Stack direction='row' spacing={2} sx={{alignItems:'center'}}  onClick={()=>{dispatch(toogleSidebar())}}>
               <Typography>{el.title}</Typography>
               <IconButton>{el.icon}</IconButton>
             </Stack>

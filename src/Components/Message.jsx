@@ -32,7 +32,7 @@ const dispatch=useDispatch();
           height: "100vh",
           display: "flex",
           flexDirection: "column",
-          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+          boxShadow:'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
         }}
       >
         {/* User Info Section */}

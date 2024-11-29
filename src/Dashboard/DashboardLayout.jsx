@@ -140,7 +140,7 @@ const res=app.sidebar.open;
 
         <Box
           sx={{
-            flex: { xs: "1 1 100%", md: "1 1 10%" },
+            flex: { xs: "1 1 100%", md: " 1 1 15%" },
             backgroundColor:theme.palette.background.paper,
               
           }}
@@ -149,14 +149,14 @@ const res=app.sidebar.open;
         </Box>
        <Box sx={{
              flex: { xs: "1 1 100%", md: "1 1 40%" },
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: theme.palette.background.paper
 
           }}>
         <Message/>
        </Box>
       {res&&<Box sx={{
-             flex: { xs: "1 1 100%", md: "1 1 15%" },
-            backgroundColor: theme.palette.background.default,
+             flex: { xs: "1 1 100%", md: "1 1 20%" },
+            backgroundColor: theme.palette.background.paper,
 
           }}>
          <Contact/>
