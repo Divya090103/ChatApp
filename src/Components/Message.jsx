@@ -63,7 +63,7 @@ const dispatch=useDispatch();
               </Box>
             </Stack>
 
-            <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={1} alignItems="center">
               <IconButton>
                 <VideocamIcon />
               </IconButton>

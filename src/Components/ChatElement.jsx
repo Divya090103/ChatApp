@@ -1,6 +1,5 @@
 import {Avatar, Box, Divider, Stack,Typography} from '@mui/material'
 const ChatElement=({data})=>{
-  console.log(data);
   return(
     <>
     <Box sx={{

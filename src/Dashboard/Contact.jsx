@@ -2,49 +2,56 @@ import {
   Avatar,
   Box,
   Divider,
+  Button,
   IconButton,
   Stack,
   Switch,
   Typography,
 } from "@mui/material";
-import { faker } from "@faker-js/faker";
+import { faker} from "@faker-js/faker";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useDispatch } from "react-redux";
-import { toogleSidebar } from "../redux/slices/app";
+import { toogleSidebar, updateSidebar } from "../redux/slices/app";
+
 const Contact = () => {
   const dispatch=useDispatch();
+
   return (
     <>
       <Box
         sx={{
           flex: { xs: "1 1 100%", md: "1 1 10%" },
           p: 1,
-          backgroundColor: "background.default",
-          overflow: "auto",
+          backgroundColor: "background.paper",
         }}
         color={"text.primary"}
+        
+      
       >
+
         <Stack direction="column">
-          <Box sx={{ background: "theme.pallete.background.default" }} p={1}>
-            <Stack direction={'row'} alignItems={"center"} spacing={12}>
-            <Typography variant="h5">Contact Info</Typography>
-            <IconButton onClick={()=>{
-              dispatch(toogleSidebar())
-            }}>
-              <CloseOutlinedIcon/>
+          <Box sx={{ background: "theme.pallete.background.paper" }} p={1}>
+            <Stack direction={"row"} alignItems={"center"} sx={{justifyContent:'space-between'}}>
+              <Typography variant="h5">Contact Info</Typography>
+              <IconButton
+                onClick={() => {
+                  dispatch(toogleSidebar());
+                }}
+              >
+                <CloseOutlinedIcon />
               </IconButton>
-              </Stack>
+            </Stack>
             <Divider />
           </Box>
 
-          <Stack sx={{ alignItems: "center", marginTop: "5%" }}>
+          <Stack sx={{ alignItems: "center", marginTop: "5%" }} fontWeight={600}>
             <Stack direction={"row"} alignItems={"center"} spacing={1}>
-              <Avatar src={faker.image.avatar()} />
+              <Avatar src={faker.image.avatar()}  alt={faker.person.fullName()}/>
               <Typography color="text.primary">
                 {faker.person.fullName()}
               </Typography>
@@ -83,14 +90,23 @@ const Contact = () => {
           <Divider />
 
           <Box p={2}>
-            <Stack>
-            <Typography>Media, Links &Docs</Typography>
-            <Stack>Image area</Stack>
+            <Stack direction={'row'} alignItems={'center'}  spacing={2} sx={{justifyContent:'space-between'}}>
+
+              <Typography variant='subtitle1'>Media, Links &Docs</Typography>
+              <Button onClick={()=>{console.log("uodatw")
+                dispatch(updateSidebar ({type:'media'}))}}>401 <KeyboardArrowRightOutlinedIcon /></Button>
             </Stack>
+            <Stack direction='row' spacing={2} alignItems={'center'}>
+                {[1,2,3].map((el)=>{
+                  return <Box>
+                    <img src={faker.image.avatar()} width={100} alt={faker.person.fullName()}/>
+                  </Box>
+                })}
+              </Stack>
           </Box>
           <Divider />
 
-          <Stack direction={"row"} alignItems={"center"} spacing={10} p={2}>
+          <Stack direction={"row"} alignItems={"center"} p={2} sx={{justifyContent:'space-between'}}>
             <Typography>
               <IconButton>
                 <StarBorderIcon />
@@ -98,23 +114,33 @@ const Contact = () => {
               Starred Message
             </Typography>
             <IconButton>
-              <KeyboardArrowRightOutlinedIcon/>
+              <KeyboardArrowRightOutlinedIcon onClick={()=>{dispatch(updateSidebar({type:'starred'}))}} />
             </IconButton>
           </Stack>
 
-       
-            <Divider />
-            <Stack direction={"row"} alignItems={"center"} spacing={6} p={2}>
-              <Typography>
-                <IconButton>
-                  <NotificationsIcon />
-                </IconButton>
-                Mute Notifications
-              </Typography>
-              <Switch />
-            </Stack>
-   
           <Divider />
+          <Stack direction={"row"} alignItems={"center"} spacing={6} p={2} sx={{justifyContent:'space-between'}}>
+            <Typography>
+              <IconButton>
+                <NotificationsIcon />
+              </IconButton>
+              Mute Notifications
+            </Typography>
+            <Switch />
+          </Stack>
+
+          <Divider />
+          <Stack p={2}>
+          <Typography>1 group in common</Typography>
+          <Stack spacing={2} alignItems={'center'} p={2} direction={'row'}>
+            <Avatar />
+            <Typography variant="subtitle">Coding monk</Typography>
+          </Stack>
+          <Stack direction={'row'} spacing={0.5}>
+             <Button startIcon fullWidth variant="outlined">Block</Button>
+             <Button startIcon fullWidth variant='outlined'>Delete</Button>
+          </Stack>
+          </Stack>
         </Stack>
       </Box>
     </>

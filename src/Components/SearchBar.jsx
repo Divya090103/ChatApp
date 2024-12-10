@@ -22,7 +22,7 @@ const SearchBar = () => {
 }
 
 const chatlist=generateChatList(10);
-console.log(chatlist)
+
 
   return (
     <>   

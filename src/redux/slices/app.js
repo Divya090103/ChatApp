@@ -2,27 +2,32 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sidebar: {
-    open: false,
-    type: 'Contact', // media, starred, contact
-  }
+    open:false,
+    type:'Contact'
+  },
 };
 
-const slice = createSlice({
-  name: 'app',
+const appSlice = createSlice({
+  name: "app",
   initialState,
-  reducers: { // corrected typo here
-    // toggle sidebar
-    toogleSidebar(state) { // This should be toggleSidebar, not toogleSidebar
+  reducers: {
+    toogleSidebar(state) {
+      console.log("Current type:", state.sidebar.type); // This will log the current type
       state.sidebar.open = !state.sidebar.open;
+      state.sidebar.type='Contact'
+
+     
     },
     updateSidebar(state, action) {
-      state.sidebar.type = action.payload.type;
-    }
-  }
+      
+        console.log("update the sidebar")
+        console.log("updated value",action.payload.type)
+        state.sidebar.type = action.payload.type;
+  
+    },
+  },
 });
 
-// Thunk function to toggle the sidebar
-export const {toogleSidebar, updateSidebar} = slice.actions;
+export const { toogleSidebar, updateSidebar } = appSlice.actions;
+export default appSlice.reducer;
 
-
-export default slice.reducer;

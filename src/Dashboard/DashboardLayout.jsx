@@ -1,4 +1,4 @@
-import {Box, Stack, Switch } from "@mui/material";
+import { Box, Stack, Switch } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { IconButton } from "@mui/material";
@@ -9,11 +9,16 @@ import Message from "../Components/Message";
 import Profile from "./Profile";
 import Contact from "./Contact";
 import { icons } from "../Data/Lists";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import ShareMessage from "../Components/SharedMessage";
+import StarredMessg from "../Components/StarredMessg";
+// import { store } from "../redux/store";
 const DashboardLayout = () => {
-  const app=useSelector((store)=>store.app);
-  console.log(app);
-const res=app.sidebar.open;
+  const app = useSelector((store) => store.app);
+  console.log("Full app state:", app.sidebar);
+
+  const res = app.sidebar.open;
+  const type = app.sidebar.type;
 
   const [mode, setMode] = useState("light");
   const [selected, setSelected] = useState(0);
@@ -37,25 +42,30 @@ const res=app.sidebar.open;
           },
           text: {
             primary: mode === "dark" ? "#ffffff" : "#212121", // White for dark mode, dark grey for light mode
-            secondary: mode === "dark" ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)", // Slightly lighter text color
+            secondary:
+              mode === "dark"
+                ? "rgba(255, 255, 255, 0.7)"
+                : "rgba(0, 0, 0, 0.7)", // Slightly lighter text color
           },
-          divider: mode === "dark" ? "rgba(255, 255, 255, 0.12)" : "rgba(0, 0, 0, 0.12)", // Adjusted for both modes
+          divider:
+            mode === "dark"
+              ? "rgba(255, 255, 255, 0.12)"
+              : "rgba(0, 0, 0, 0.12)", // Adjusted for both modes
         }, // Add more properties as needed
-
       }),
     [mode]
   );
-//the contact page
-// const [open, setOpen] = useState(false);
+  //the contact page
+  // const [open, setOpen] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
-      <Stack direction="row" sx={{ height: "100vh"}}>
+      <Stack direction="row" sx={{ height: "100vh" }}>
         <Box
           padding={2}
           sx={{
             backgroundColor: theme.palette.background.default,
-            boxShadow:"rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
+            boxShadow: "rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
           }}
         >
           <Stack
@@ -105,22 +115,22 @@ const res=app.sidebar.open;
                     }}
                   >
                     {icon.IconComponent}
-                   
                   </IconButton>
                 ))}
                 <hr style={{ width: "100%", color: "grey" }} />
                 <IconButton
                   onClick={() => setSelected(4)}
                   sx={{
-                    backgroundColor: selected === 4 ? "primary.main" : "transparent",
+                    backgroundColor:
+                      selected === 4 ? "primary.main" : "transparent",
                     borderRadius: "50%",
                     padding: "8px",
                   }}
                 >
                   <SettingsOutlinedIcon
-                   style={{
-                    color: theme.palette.mode === "dark" ? "white" : "black",
-                  }}
+                    style={{
+                      color: theme.palette.mode === "dark" ? "white" : "black",
+                    }}
                   />
                 </IconButton>
               </Stack>
@@ -132,7 +142,7 @@ const res=app.sidebar.open;
                   color="default"
                 />
                 {/* profile Avatar */}
-                <Profile/>
+                <Profile />
               </Stack>
             </Stack>
           </Stack>
@@ -141,26 +151,44 @@ const res=app.sidebar.open;
         <Box
           sx={{
             flex: { xs: "1 1 100%", md: " 1 1 15%" },
-            backgroundColor:theme.palette.background.paper,
-              
+            backgroundColor: theme.palette.background.paper,
           }}
         >
-          <Chat theme={theme}/>
+          <Chat theme={theme} />
         </Box>
-       <Box sx={{
-             flex: { xs: "1 1 100%", md: "1 1 40%" },
-            backgroundColor: theme.palette.background.paper
-
-          }}>
-        <Message/>
-       </Box>
-      {res&&<Box sx={{
-             flex: { xs: "1 1 100%", md: "1 1 20%" },
+        <Box
+          sx={{
+            flex: { xs: "1 1 100%", md: "1 1 40%" },
             backgroundColor: theme.palette.background.paper,
+          }}
+        >
+          <Message />
+        </Box>
+        {/* here i want to open the media or contact on the basis of the type of result */}
+        {res && (
+  <Box
+    sx={{
+      flex: { xs: "1 1 100%", md: "1 1 20%" },
+      overflow: "auto",
+      boxShadow:
+        "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+    }}
+  >
+    {(() => {
+      switch (type) {
+        case "Contact":
+          return <Contact />;
+        case "media":
+          return <ShareMessage />;
+          case 'starred':
+            return <StarredMessg/>
+        default:
+          return <></>;
+      }
+    })()}
+  </Box>
+)}
 
-          }}>
-         <Contact/>
-       </Box>}
       </Stack>
     </ThemeProvider>
   );
