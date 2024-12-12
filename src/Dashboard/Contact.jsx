@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   Avatar,
   Box,
@@ -7,6 +8,12 @@ import {
   Stack,
   Switch,
   Typography,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  DialogActions,
+  Slide
 } from "@mui/material";
 import { faker} from "@faker-js/faker";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
@@ -17,10 +24,73 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useDispatch } from "react-redux";
 import { toogleSidebar, updateSidebar } from "../redux/slices/app";
+import { useState } from "react";
+import { TransitionProps } from '@mui/material/transitions';
 
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const BlockDailog=({open,handleClose})=>{
+  return(
+    <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Block this contact</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+           Are You sure to Block this Contact
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>Agree</Button>
+        </DialogActions>
+      </Dialog>
+  )
+}
+
+const DeleteDailog=({open,handleClose})=>{
+  return(
+    <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Block this contact</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+           Are You sure to Block this Contact
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>Agree</Button>
+        </DialogActions>
+      </Dialog>
+  )
+}
 const Contact = () => {
   const dispatch=useDispatch();
-
+  const [openBlock,setopenBlock]=useState(false);
+  const [OpenDelete,SetOpenDelete]=useState(false);
+const hanldeBlock=()=>{
+  setopenBlock(!openBlock);
+}
+const handleDelete=()=>{
+  SetOpenDelete(!OpenDelete)
+}
   return (
     <>
       <Box
@@ -137,11 +207,13 @@ const Contact = () => {
             <Typography variant="subtitle">Coding monk</Typography>
           </Stack>
           <Stack direction={'row'} spacing={0.5}>
-             <Button startIcon fullWidth variant="outlined">Block</Button>
-             <Button startIcon fullWidth variant='outlined'>Delete</Button>
+             <Button startIcon fullWidth variant="outlined" onClick={hanldeBlock}>Block</Button>
+             <Button startIcon fullWidth variant='outlined' onClick={handleDelete}>Delete</Button>
           </Stack>
           </Stack>
         </Stack>
+        {openBlock&&<BlockDailog open={openBlock} handleClose={hanldeBlock}/>}
+        {OpenDelete&&<DeleteDailog open={OpenDelete} handleClose={handleDelete}/>}
       </Box>
     </>
   );

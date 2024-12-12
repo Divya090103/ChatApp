@@ -3,6 +3,7 @@ import "./App.css"
 import React from "react";
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import DashboardLayout from "./Dashboard/DashboardLayout";
+
 //Dynamic Loading of component can be done using suspense and lazy
 // const Cat=lazy(()=>import('./Components/Cat'))
 /* <Suspense fallback="Loading..."> 
@@ -13,11 +14,11 @@ function App() {
     <>
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={ <> <DashboardLayout/>
-
-
-    </>}/>
  
+    <Route path="/" element={ <> <DashboardLayout/>
+    </>}/>
+    <Route path="/settings" />
+
     </Routes>
     </BrowserRouter>
     </>

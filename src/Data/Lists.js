@@ -131,4 +131,88 @@ const icons = [
   { id: 3, IconComponent: <CallOutlinedIcon/> },
   { id: 4, IconComponent: <SettingsOutlinedIcon/> },
 ];
-export {MessageOptions,chats,ProfileOptions,icons};
+
+const Shared_Links=[
+ { type: "message",
+    isOutgoing: false,
+    contentType: "link",
+    content: {
+      url: "https://www.example.com",
+      text: "Here’s the link to the website we discussed.",
+    },
+    time: "2:00 PM",},
+    { type: "message",
+      isOutgoing: false,
+      contentType: "link",
+      content: {
+        url: "https://www.example.com",
+        text: "Here’s the link to the website we discussed.",
+      },
+      time: "2:00 PM",},
+      { type: "message",
+        isOutgoing: false,
+        contentType: "link",
+        content: {
+          url: "https://www.example.com",
+          text: "Here’s the link to the website we discussed.",
+        },
+        time: "2:00 PM",},
+        { type: "message",
+          isOutgoing: false,
+          contentType: "link",
+          content: {
+            url: "https://www.example.com",
+            text: "Here’s the link to the website we discussed.",
+          },
+          time: "2:00 PM",},
+
+
+]
+
+const Shared_Docs=[
+  {
+    id: "5",
+    type: "message",
+    isOutgoing: true,
+    contentType: "document",
+    content: {
+      fileName: "Project_Plan.pdf",
+      fileUrl: "https://www.example.com/documents/Project_Plan.pdf",
+    },
+    time: "10:08 AM",
+  },
+  {
+    id: "5",
+    type: "message",
+    isOutgoing: true,
+    contentType: "document",
+    content: {
+      fileName: "Project_Plan.pdf",
+      fileUrl: "https://www.example.com/documents/Project_Plan.pdf",
+    },
+    time: "10:08 AM",
+  },
+  {
+    id: "5",
+    type: "message",
+    isOutgoing: true,
+    contentType: "document",
+    content: {
+      fileName: "Project_Plan.pdf",
+      fileUrl: "https://www.example.com/documents/Project_Plan.pdf",
+    },
+    time: "10:08 AM",
+  },
+  {
+    id: "5",
+    type: "message",
+    isOutgoing: true,
+    contentType: "document",
+    content: {
+      fileName: "Project_Plan.pdf",
+      fileUrl: "https://www.example.com/documents/Project_Plan.pdf",
+    },
+    time: "10:08 AM",
+  },
+]
+export {MessageOptions,chats,ProfileOptions,icons,Shared_Docs,Shared_Links};
