@@ -7,7 +7,6 @@ import Contact from "./Contact";
 import { useSelector } from "react-redux";
 import ShareMessage from "../Components/SharedMessage";
 import StarredMessg from "../Components/StarredMessg";
-import SideBar from "../Components/Sidebar";
 import { useTheme } from "@emotion/react";
 const DashboardLayout = () => {
   const app = useSelector((store) => store.app);
@@ -15,7 +14,7 @@ const DashboardLayout = () => {
   const theme = useTheme();
   console.log(theme)
   const commonBoxStyles = {
-    flex: { xs: "1 1 100%", md: "1 1 20%" },
+    flex: { xs: "1 1 100%", md: "1 1 10%" },
     overflow: "auto",
     boxShadow:
       "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
@@ -36,19 +35,10 @@ const DashboardLayout = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Stack direction="row" sx={{ height: "100vh" }}>
-        <Box
-          padding={2}
-          sx={{
-            backgroundColor: theme.palette.background.default,
-            boxShadow: "rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
-          }}
-        >
-          <SideBar />
-        </Box>
+    <Stack direction={'row'} sx={{height:'100vh'}}>   
         <Box
           sx={{
-            flex: { xs: "1 1 100%", md: "1 1 15%" },
+            flex: { xs: "1 1 100%", md: res ? "1 1 10%" : "1 1 50%"},
             backgroundColor: theme.palette.background.paper,
           }}
         >
@@ -56,14 +46,14 @@ const DashboardLayout = () => {
         </Box>
         <Box
           sx={{
-            flex: { xs: "1 1 100%", md: "1 1 40%" },
+            flex: { xs: "1 1 100%",  md: res ? "1 1 30%" : "1 1 70%" },
             backgroundColor: theme.palette.background.paper,
           }}
         >
           <Message />
         </Box>
         {res && <Box sx={commonBoxStyles}>{renderContent(type)}</Box>}
-      </Stack>
+        </Stack>
     </ThemeProvider>
   );
 };

@@ -3,15 +3,17 @@ import Logo from "../Images/Logo.png";
 import { icons } from "../Data/Lists";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import Profile from "../Dashboard/Profile";
-import React, { useState, useContext } from "react";
-import ThemeContext from "../Dashboard/ThemeContext";
+import React, { useState, useContext, useEffect } from "react";
+import ThemeContext from "../Dashboard/ThemeProvider";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 const SideBar=()=>{
 
-
+const navigate=useNavigate();
   const [selected, setSelected] = useState(0);
   const { toggleTheme, mode } = useContext(ThemeContext);
   const theme = useTheme();
+
 
   return<>
    <Stack
@@ -52,7 +54,11 @@ const SideBar=()=>{
                 {icons.slice(0, 3).map((icon) => (
                   <IconButton
                     key={icon.id}
-                    onClick={() => setSelected(icon.id)}
+                    onClick={() => {
+                      console.log('clicked iconn',icon.id)
+                      setSelected(icon.id)
+                      
+                    }}
                     sx={{
                       backgroundColor:
                         selected === icon.id ? "primary.main" : "transparent",
@@ -65,7 +71,11 @@ const SideBar=()=>{
                 ))}
                 <hr style={{ width: "100%", color: "grey" }} />
                 <IconButton
-                  onClick={() => setSelected(4)}
+                  onClick={() => 
+                    {setSelected(4)
+                      if(selected==4){
+                    navigate('/settings')
+                  }}}
                   sx={{
                     backgroundColor:
                       selected === 4 ? "primary.main" : "transparent",
