@@ -7,8 +7,8 @@ const ThemeContext = createContext();
 export const ThemeContextProvider = ({ children }) => {
   const [mode, setMode] = useState("light");
 
-  const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  const toggleTheme = (val) => {
+    setMode(val);
   };
 
   const theme = useMemo(

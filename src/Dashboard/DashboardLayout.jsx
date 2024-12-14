@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/material";
-import { ThemeProvider } from "@mui/material";
+
 import React from "react";
 import Chat from "./Chat";
 import Message from "../Components/Message";
@@ -14,7 +14,8 @@ const DashboardLayout = () => {
   const theme = useTheme();
   console.log(theme)
   const commonBoxStyles = {
-    flex: { xs: "1 1 100%", md: "1 1 10%" },
+    flex: { xs: "1 1 100%", md: "1 1 100%" },
+    width:'100%',
     overflow: "auto",
     boxShadow:
       "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
@@ -34,11 +35,11 @@ const DashboardLayout = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-    <Stack direction={'row'} sx={{height:'100vh'}}>   
+ 
+    <Stack direction={'row'} sx={{height:'100vh'}}>
         <Box
           sx={{
-            flex: { xs: "1 1 100%", md: res ? "1 1 10%" : "1 1 50%"},
+            flex: { xs: "1 1 100%", md: "1 1 30%"},
             backgroundColor: theme.palette.background.paper,
           }}
         >
@@ -46,7 +47,7 @@ const DashboardLayout = () => {
         </Box>
         <Box
           sx={{
-            flex: { xs: "1 1 100%",  md: res ? "1 1 30%" : "1 1 70%" },
+            flex: { xs: "1 1 100%",  md:"1 1 70%" },
             backgroundColor: theme.palette.background.paper,
           }}
         >
@@ -54,7 +55,7 @@ const DashboardLayout = () => {
         </Box>
         {res && <Box sx={commonBoxStyles}>{renderContent(type)}</Box>}
         </Stack>
-    </ThemeProvider>
+
   );
 };
 

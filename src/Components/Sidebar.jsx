@@ -3,7 +3,7 @@ import Logo from "../Images/Logo.png";
 import { icons } from "../Data/Lists";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import Profile from "../Dashboard/Profile";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import ThemeContext from "../Dashboard/ThemeProvider";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -73,7 +73,7 @@ const navigate=useNavigate();
                 <IconButton
                   onClick={() => 
                     {setSelected(4)
-                      if(selected==4){
+                      if(selected===4){
                     navigate('/settings')
                   }}}
                   sx={{
@@ -94,7 +94,7 @@ const navigate=useNavigate();
               <Stack sx={{ alignItems: "center" }}>
                 <Switch
                   checked={mode === "dark"}
-                  onChange={toggleTheme}
+                  onChange={() => toggleTheme(mode === "dark" ? "light" : "dark")}
                   color="default"
                 />
                 {/* profile Avatar */}
