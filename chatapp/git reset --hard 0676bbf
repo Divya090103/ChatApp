@@ -1,0 +1,10 @@
+[33m7c39c39[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m addd the previous files
+[33m0676bbf[m[33m ([m[1;31morigin/main[m[33m)[m insert the setting page and handle the theme functionality
+[33md7dcc55[m setting navigation
+[33m39c3909[m Wrap up the theme component to the provider
+[33me121ea4[m switch tabs of contact
+[33mdac207a[m conatct and profilr info
+[33m07fcc4c[m add redux toolkit
+[33m198b637[m New Features
+[33m506fb9c[m Message Window
+[33m06421db[m First Commit
