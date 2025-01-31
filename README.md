@@ -71,3 +71,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 <!-- the extra notes that tech satck i am going to use -->
 loading the components dynamically by using the react elements
 suspense and lazy
+
+
+<!-- Server functionality -->
+
+Bcrypt,nodemailer,crypto,mongoose,cors
