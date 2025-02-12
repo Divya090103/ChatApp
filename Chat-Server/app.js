@@ -22,10 +22,13 @@ app.use(cors({
   credentials:true,
 }))
 
-app.use("/api", router); 
+app.use("/Chit-Chat", router); 
 app.listen(port, () => {
-  console.log("server is created");
+  console.log("server is created",port);
   connect();
+})
+app.get("/",(req,res)=>{
+  res.send("server is rinning")
 })
 
 

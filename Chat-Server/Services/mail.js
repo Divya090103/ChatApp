@@ -1,28 +1,32 @@
 const nodemailer = require("nodemailer");
 
-// Create transporter
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "Gmail",
     auth: {
-        user: process.env.mailid, // Your email
-        pass: process.env.mailpassword // Your App Password (not your regular password)
-    }
-});
+      user: process.env.mailid,
+      pass: process.env.mailPassword,
+    },
+  });
 
-// Email options
-const mailOptions = {
-    from: process.env.mailid, // Your email
-    to: "recipient-email@example.com",
-    subject: "Test Email using Nodemailer",
-    text: "Hello, this is a test email sent using Nodemailer!"
-};
+async function sendmail(email,otp){
+   try{ 
+     await transporter.sendMail({
+    from: process.env.mailid,
+    to: email,
+    subject: "Your OTP Code",
+    text: `Hello,
 
-// Send email
-transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-        console.log("Error: ", error);
-    } else {
-        console.log("Email sent: " + info.response);
-    }
-});
+    Your OTP code for Chit-Chat account is ${otp}.
+    
+    ⚠️ Note: This OTP is valid for only 10 minutes.
+    
+    Thanks & Regards,
+    Team Chit-Chat`,
+  });}
+  catch(error){
+    console.log(error);
+  }
+}
+
+module.exports=sendmail;
 

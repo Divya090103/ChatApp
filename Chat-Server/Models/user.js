@@ -32,14 +32,14 @@ const userSchema = new mongoose.Schema({
   passwordConfrm: {
     type: String,
   },
+ 
+  Otp: {
+    type: String,
+  },
   Validate: {
     type: Boolean,
-    // required: true,
   },
-  Otp: {
-    type: Number,
-  },
-  Opt_expires_time: {
+  expires_time: {
     type: Date,
   },
   Otp_verfied: {
@@ -52,35 +52,46 @@ const userSchema = new mongoose.Schema({
     type: Date,
   },
 });
-
+async function hashPassword(plainPassword) {
+  const salt = await bcrypt.genSalt(10); // Generate salt with a 10-round strength
+  const hashedPassword = await bcrypt.hash(plainPassword, salt); // Hash the password
+  return hashedPassword;
+}
 //pre function
 
-// userSchema.pre("save", async function (next) {
-//   // Only run this function if otp was actually modified
-//   if (!this.isModified("otp") || !this.otp) return next();
-//   const salt = await bcrypt.genSalt(10);
-//   this.otp = await bcrypt.hash(this.otp, salt);
-//   console.log(this.otp.toString(), "FROM PRE SAVE HOOK");
-//   next();
-// });
+userSchema.pre("save", async function (next) {
+  // Only run this function if otp was actually modified
+  if (!this.isModified("Otp") || !this.Otp) return next();
+       
+  const temp=await hashPassword(this.Otp);
+  this.Otp=temp.toString();
+  next();
+});
 
 userSchema.pre("save", async function (next) {
   if (this.isModified("password") || !this.password) return next();
-console.log(this.password)
   this.password = await hashPassword(this.password);
-  console.log(this.password)
+  next();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 userSchema.methods.correctOTP = async function (candidateOTP, userOTP) {
   return await bcrypt.compare(candidateOTP, userOTP);
 };
 
-async function hashPassword(plainPassword) {
-  const salt = await bcrypt.genSalt(10); // Generate salt with a 10-round strength
-  const hashedPassword = await bcrypt.hash(plainPassword, salt); // Hash the password
-  console.log(hashedPassword)
-  return hashedPassword;
-}
+
 
 // Function to compare the entered password with the stored (hashed) password
 userSchema.method.validatePassword = async function (
